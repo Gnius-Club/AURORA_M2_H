@@ -42,7 +42,8 @@ class AuroraGame {
             commandSequence: [],
             isExecuting: false,
             missionStartTime: Date.now(),
-            mappedTerrain: new Set()
+            mappedTerrain: new Set(),
+            timerInterval: null // CAMBIO: Para controlar el intervalo del cronómetro
         };
 
         // Tutorial state
@@ -921,7 +922,8 @@ class AuroraGame {
 
     showSuccess() {
         this.playSound('successFanfare');
-        
+        clearInterval(this.gameState.timerInterval); // CAMBIO: Detener el cronómetro
+
         const modal = this.elements.successModal;
         const efficiencyElement = document.getElementById('final-efficiency');
         const messageElement = document.getElementById('success-message');
@@ -936,7 +938,8 @@ class AuroraGame {
 
     showFailure() {
         this.playSound('powerDownFailure');
-        
+        clearInterval(this.gameState.timerInterval); // CAMBIO: Detener el cronómetro
+
         const modal = this.elements.failureModal;
         const messageElement = document.getElementById('failure-message');
         
@@ -1031,7 +1034,11 @@ class AuroraGame {
     }
 
     startMissionTimer() {
-        setInterval(() => {
+        // CAMBIO: Almacenar el intervalo para poder detenerlo
+        if (this.gameState.timerInterval) {
+            clearInterval(this.gameState.timerInterval);
+        }
+        this.gameState.timerInterval = setInterval(() => {
             const elapsed = Date.now() - this.gameState.missionStartTime;
             const hours = Math.floor(elapsed / 3600000).toString().padStart(2, '0');
             const minutes = Math.floor((elapsed % 3600000) / 60000).toString().padStart(2, '0');
@@ -1042,6 +1049,11 @@ class AuroraGame {
     }
 
     restartGame() {
+        // CAMBIO: Detener el cronómetro anterior antes de reiniciar
+        if (this.gameState.timerInterval) {
+            clearInterval(this.gameState.timerInterval);
+        }
+        
         // Reset game state
         this.gameState = {
             energy: this.config.startEnergy,
@@ -1051,7 +1063,8 @@ class AuroraGame {
             commandSequence: [],
             isExecuting: false,
             missionStartTime: Date.now(),
-            mappedTerrain: new Set()
+            mappedTerrain: new Set(),
+            timerInterval: null // Resetear el intervalo
         };
 
         // Reset UI
@@ -1059,6 +1072,7 @@ class AuroraGame {
         this.updateEnergyBar();
         this.updateRoverPosition();
         this.createObjectivesList();
+        this.startMissionTimer(); // CAMBIO: Iniciar el nuevo cronómetro
         
         this.elements.executePlan.disabled = false;
         this.elements.executePlan.textContent = '[ SIMULAR Y EJECUTAR PLAN ]';

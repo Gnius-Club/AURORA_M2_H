@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.U.R.O.R.A. Misión 2: Protocolo de Optimización Energética</title>
-    <!-- CAMBIO: Importación de fuente Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -18,8 +17,7 @@
             <h1 class="header__title">A.U.R.O.R.A. MISIÓN 2: PROTOCOLO DE OPTIMIZACIÓN ENERGÉTICA</h1>
             <div class="header__status">
                 <span class="status-indicator" id="connection-status">● ENLACE ESTABLECIDO</span>
-                <!-- El cronómetro ahora se estiliza para ser grande y rojo -->
-                <span class="mission-timer" id="mission-timer">00:00:00</span>
+                <span class="mission-timer" id="mission-timer">00:00:00.000</span>
             </div>
         </div>
     </header>
@@ -167,18 +165,25 @@
     <!-- Success Modal -->
     <div class="modal hidden" id="success-modal">
         <div class="modal__backdrop"></div>
-        <div class="modal__content modal__content--large success-screen">
+        <!-- CAMBIO: Se añade un id al contenido para poder capturarlo -->
+        <div class="modal__content modal__content--large success-screen" id="success-certificate">
             <div class="success-animation">
                 <div class="success-glow"></div>
                 <h2 class="success-title">MISIÓN CUMPLIDA</h2>
                 <div class="success-efficiency">
                     Eficiencia Energética: <span id="final-efficiency">0%</span>
                 </div>
+                <!-- CAMBIO: Nuevo elemento para mostrar el tiempo final -->
+                <div class="success-time">
+                    Tiempo de Misión: <span id="final-mission-time">00:00:00.000</span>
+                </div>
             </div>
             <div class="success-message" id="success-message">
                 <!-- Success message will be typed here -->
             </div>
             <div class="modal__footer">
+                <!-- CAMBIO: Nuevo botón para descargar la captura -->
+                <button class="btn btn--outline" id="download-screenshot">Descargar Certificado</button>
                 <button class="btn btn--primary" id="restart-game">NUEVA MISIÓN</button>
             </div>
         </div>
@@ -222,11 +227,8 @@
         </div>
     </div>
 
-    <!-- Audio Elements (sin cambios) -->
-    <audio id="ui-sound" preload="auto">
-        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmweBzuN3vPBdSMEKYPM7NZ+MwARaryBb2AcBk" type="audio/wav">
-    </audio>
-    
+    <!-- CAMBIO: Librería para capturar la pantalla -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

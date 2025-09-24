@@ -50,7 +50,7 @@
   /* Typography */
   --font-family-base: 'Roboto', sans-serif;
   --font-family-terminal: 'VT323', 'Courier New', monospace;
-  /* CAMBIO: Fuentes 25% más grandes */
+  /* Fuentes 25% más grandes */
   --font-size-xs: 15px;
   --font-size-sm: 18px;
   --font-size-base: 20px;
@@ -95,7 +95,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  /* CAMBIO: Fuente base a Roboto */
   font-family: var(--font-family-base);
   background: linear-gradient(135deg, #0a1426 0%, #1a2332 50%, #0f1a28 100%);
   color: var(--color-terminal-text);
@@ -143,7 +142,7 @@ body::before {
   margin: 0;
   text-shadow: var(--glow-primary);
   letter-spacing: 2px;
-  font-family: var(--font-family-terminal); /* Mantiene fuente de terminal */
+  font-family: var(--font-family-terminal);
 }
 
 .header__status {
@@ -160,13 +159,12 @@ body::before {
   text-shadow: var(--glow-secondary);
 }
 
-/* CAMBIO: Estilo del cronómetro */
 .mission-timer {
   color: var(--color-terminal-error);
   font-size: var(--font-size-3xl);
   font-weight: bold;
   text-shadow: 0 0 15px var(--color-terminal-error);
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 
@@ -217,7 +215,7 @@ body::before {
   overflow: hidden;
   height: fit-content;
   min-height: 500px;
-  font-family: var(--font-family-terminal); /* Asegura que los paneles usen la fuente de terminal */
+  font-family: var(--font-family-terminal);
 }
 
 .panel__header {
@@ -395,9 +393,9 @@ body::before {
   transform: scale(0.98);
 }
 
-.command-block.dragging {
-  opacity: 0.7;
-  transform: rotate(5deg);
+.command-block.dragging, .sequence-command.dragging {
+  opacity: 0.5;
+  transform: rotate(3deg) scale(1.05);
 }
 
 /* Sequence Area */
@@ -439,6 +437,8 @@ body::before {
   align-items: center;
   color: var(--color-terminal-text);
   position: relative;
+  cursor: grab;
+  transition: background var(--duration-fast);
 }
 
 .sequence-command:hover {
@@ -478,7 +478,7 @@ body::before {
   padding: var(--space-4);
   border-radius: var(--radius-sm);
   transition: background var(--duration-fast);
-  font-size: var(--font-size-2xl); /* Aumentado para visibilidad */
+  font-size: var(--font-size-2xl);
 }
 
 .command-remove:hover {
@@ -625,8 +625,8 @@ body::before {
 }
 
 .objective-checkbox {
-  width: 20px; /* Aumentado */
-  height: 20px; /* Aumentado */
+  width: 20px;
+  height: 20px;
   border: 2px solid var(--color-terminal-secondary);
   border-radius: var(--radius-sm);
   position: relative;
@@ -769,7 +769,7 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--font-family-terminal); /* Fuente de terminal para headers de modal */
+  font-family: var(--font-family-terminal);
 }
 
 .modal__header h2 {
@@ -783,7 +783,6 @@ body::before {
   padding: var(--space-20);
   color: var(--color-terminal-text);
   line-height: 1.6;
-  /* El body del modal usa la fuente Roboto por defecto */
 }
 
 .modal__footer {
@@ -863,6 +862,19 @@ body::before {
 .success-efficiency {
   color: var(--color-terminal-warning);
   font-size: var(--font-size-xl);
+  font-weight: bold;
+}
+
+.success-time {
+  color: var(--color-terminal-secondary);
+  font-family: var(--font-family-terminal);
+  font-size: var(--font-size-2xl);
+  margin-top: var(--space-16);
+  text-shadow: var(--glow-secondary);
+}
+
+.success-time span {
+  color: var(--color-terminal-text);
   font-weight: bold;
 }
 
